@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    restart: always
+    environment:
+      - NODE_ENV=production
+      # 如需使用 MySQL，添加以下环境变量
+      # - DB_HOST=mysql
+      # - DB_PORT=3306
+      # - DB_USER=root
+      # - DB_PASSWORD=your_password
+      # - DB_NAME=personal_homepage
+      # - DB_PREFIX=hp_
+    volumes:
+      # 挂载数据目录（JSON 模式）
+      - ./backend/data:/app/backend/data
+    ports:
+      - "3000:3000"
+    networks:
+      - youyou-network
+
+networks:
+  youyou-network:
+    driver: bridge
