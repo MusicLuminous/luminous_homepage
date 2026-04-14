@@ -73,7 +73,14 @@ class _ProfileCardState extends State<ProfileCard> {
                       width: 120,
                       height: 120,
                       color: Colors.grey[200],
-                      child: const Icon(Icons.person, size: 60),
+                      child: const Center(
+                        child: Image(
+                          image: AssetImage('assets/number1.png'),
+                          width: 60,
+                          height: 60,
+                          color: Colors.grey,
+                        ),
+                      ),
                     );
                   },
                 ),

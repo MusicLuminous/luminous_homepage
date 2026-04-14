@@ -43,7 +43,6 @@ class StatsCard extends StatelessWidget {
             children: [
               _buildStatItem(stats.runDays, '运行天数'),
               _buildStatItem(stats.activityCount, '动态总数'),
-              _buildStatItem(stats.courseCount, '本周课程'),
             ],
           ),
         ],
@@ -75,6 +74,7 @@ class _HoverStatItemState extends State<_HoverStatItem> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
+        width: 120,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOut,
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),

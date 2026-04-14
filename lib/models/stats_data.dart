@@ -1,19 +1,19 @@
 class StatsData {
   final String runDays;
   final String activityCount;
-  final String courseCount;
 
   const StatsData({
     required this.runDays,
     required this.activityCount,
-    required this.courseCount,
   });
 
   factory StatsData.defaultData() {
-    return const StatsData(
-      runDays: '27',
+    final startDate = DateTime(2026, 4, 10);
+    final today = DateTime.now();
+    final days = today.difference(startDate).inDays;
+    return StatsData(
+      runDays: days.toString(),
       activityCount: '1',
-      courseCount: '0',
     );
   }
 }
