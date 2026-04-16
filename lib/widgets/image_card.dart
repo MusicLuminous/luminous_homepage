@@ -144,7 +144,7 @@ class _ImageCardState extends State<ImageCard> {
                           child: Icon(
                             Icons.refresh,
                             size: 20,
-                            color: _isRefreshHovered ? Colors.white : const Color(0xFF1E293B),
+                            color: _isRefreshHovered ? Colors.white : const Color.fromARGB(255, 85, 119, 173),
                           ),
                         ),
                       ),

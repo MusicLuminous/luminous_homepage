@@ -18,7 +18,7 @@ class UserInfo {
       qqNumber: '3199169587',
       nickname: '殷灵涵 Luminous',
       signature: '小小世界 开心至上',
-      bio: '二次元浓度极高，热衷于捣鼓各种有趣的项目。ACG 是生活必需品，代码是快乐源泉',
+      bio: '社畜大学生一只，爱音乐，爱二次元',
       avatarUrl: '',
     );
   }

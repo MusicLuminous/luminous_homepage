@@ -21,7 +21,7 @@ class LuminousHomepage extends StatelessWidget {
           seedColor: const Color(0xFF02539A),
           brightness: Brightness.light,
         ),
-        fontFamily: 'Inter',
+        fontFamily: 'MiSansVF',
         useMaterial3: true,
       ),
       home: const HomePage(),
@@ -118,11 +118,6 @@ class _HomePageState extends State<HomePage> {
     await _hitokotoService.loadHitokoto();
   }
 
-  void _loadQQInfo() {
-    setState(() {
-      _avatarUrl = _userInfo.avatarUrlWithFallback;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -8,6 +8,7 @@ class ActivityItem {
   });
 
   static const List<ActivityItem> defaultActivities = [
-    ActivityItem(text: '「回声匣子」录音棚企划准备中。。。。', time: '刚刚'),
+    ActivityItem(text: '神都回响进省赛啦！', time: '2026 年 4 月 8 日'),
+    ActivityItem(text: '「回声匣子」录音棚企划准备中。。。。', time: '2026 年 4 月 1 日'),
   ];
 }

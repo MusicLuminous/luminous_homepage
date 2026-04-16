@@ -104,10 +104,18 @@ class _HoverLinkItemState extends State<_HoverLinkItem> {
               child: AnimatedScale(
                 scale: _isHovered ? 1.1 : 1.0,
                 duration: const Duration(milliseconds: 300),
-                child: Icon(
-                  widget.link.icon,
-                  size: 28,
-                  color: const Color(0xFF64748B),
+                child: Image(
+                  image: widget.link.iconImage,
+                  width: 28,
+                  height: 28,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Icon(
+                      Icons.link,
+                      size: 28,
+                      color: const Color(0xFF64748B),
+                    );
+                  },
                 ),
               ),
             ),
