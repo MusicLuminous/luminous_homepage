@@ -63,32 +63,39 @@ class _ImageCardState extends State<ImageCard> {
                   scale: _isHovered ? 1.02 : 1.0,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeOut,
-                  child: Image.network(
-                    widget.imageUrl,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, progress) {
-                      if (progress == null) return child;
-                      return Container(
-                        color: Colors.grey[200],
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            value: progress.expectedTotalBytes != null
-                                ? progress.cumulativeBytesLoaded /
-                                    progress.expectedTotalBytes!
-                                : null,
+                  child: widget.imageUrl.isEmpty
+                      ? Container(
+                          color: Colors.grey[200],
+                          child: const Center(
+                            child: CircularProgressIndicator(),
                           ),
+                        )
+                      : Image.network(
+                          widget.imageUrl,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, progress) {
+                            if (progress == null) return child;
+                            return Container(
+                              color: Colors.grey[200],
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  value: progress.expectedTotalBytes != null
+                                      ? progress.cumulativeBytesLoaded /
+                                          progress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: Colors.grey[200],
+                              child: const Center(
+                                child: Icon(Icons.broken_image, size: 60, color: Colors.grey),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.grey[200],
-                        child: const Center(
-                          child: Icon(Icons.broken_image, size: 60, color: Colors.grey),
-                        ),
-                      );
-                    },
-                  ),
                 ),
                 // 鼠标光效 - 纯白色
                 if (_isHovered && !_isRefreshHovered)

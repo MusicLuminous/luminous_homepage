@@ -13,7 +13,8 @@ class ImageService {
   }
 
   void loadImage() {
-    _imageUrl = 'https://api.yppp.net/api.php?t=${DateTime.now().millisecondsSinceEpoch}';
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    _imageUrl = 'https://images.weserv.nl/?url=api.yppp.net/api.php%3Ft%3D$timestamp';
     _notifyListeners();
   }
 
