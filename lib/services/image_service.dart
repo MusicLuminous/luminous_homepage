@@ -13,7 +13,7 @@ class ImageService {
   }
 
   void loadImage() {
-    _imageUrl = 'https://api.yppp.net/api.php?t=${DateTime.now().millisecondsSinceEpoch}';
+    _imageUrl = 'https://loremflickr.com/800/600?random=${DateTime.now().millisecondsSinceEpoch}';
     _notifyListeners();
   }
 
