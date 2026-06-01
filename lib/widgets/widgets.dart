@@ -8,3 +8,4 @@ export 'image_card.dart';
 export 'dots_background.dart';
 export 'sakana_widget.dart';
 export 'guestbook_card.dart';
+export 'footer.dart';

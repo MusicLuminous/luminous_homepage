@@ -63,41 +63,8 @@ class _ImageCardState extends State<ImageCard> {
                   scale: _isHovered ? 1.02 : 1.0,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeOut,
-                  child: widget.imageUrl.isEmpty
-                      ? Container(
-                          color: Colors.grey[200],
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
-                      : Image.network(
-                          widget.imageUrl,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, progress) {
-                            if (progress == null) return child;
-                            return Container(
-                              color: Colors.grey[200],
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  value: progress.expectedTotalBytes != null
-                                      ? progress.cumulativeBytesLoaded /
-                                          progress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: Colors.grey[200],
-                              child: const Center(
-                                child: Icon(Icons.broken_image, size: 60, color: Colors.grey),
-                              ),
-                            );
-                          },
-                        ),
+                  child: _buildImage(),
                 ),
-                // 鼠标光效 - 纯白色
                 if (_isHovered && !_isRefreshHovered)
                   Positioned(
                     left: _mousePosition.dx - 100,
@@ -119,7 +86,6 @@ class _ImageCardState extends State<ImageCard> {
                       ),
                     ),
                   ),
-                // 刷新按钮
                 Positioned(
                   right: 16,
                   bottom: 16,
@@ -163,6 +129,43 @@ class _ImageCardState extends State<ImageCard> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildImage() {
+    if (widget.imageUrl.isEmpty) {
+      return Container(
+        color: Colors.grey[200],
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    return Image.network(
+      widget.imageUrl,
+      fit: BoxFit.cover,
+      loadingBuilder: (context, child, progress) {
+        if (progress == null) return child;
+        return Container(
+          color: Colors.grey[200],
+          child: Center(
+            child: CircularProgressIndicator(
+              value: progress.expectedTotalBytes != null
+                  ? progress.cumulativeBytesLoaded / progress.expectedTotalBytes!
+                  : null,
+            ),
+          ),
+        );
+      },
+      errorBuilder: (context, error, stackTrace) {
+        return Container(
+          color: Colors.grey[200],
+          child: const Center(
+            child: Icon(Icons.broken_image, size: 60, color: Colors.grey),
+          ),
+        );
+      },
     );
   }
 }

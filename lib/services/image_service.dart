@@ -1,8 +1,10 @@
 class ImageService {
   String _imageUrl = '';
   final List<Function(String)> _listeners = [];
+  bool _isLoading = false;
 
   String get imageUrl => _imageUrl;
+  bool get isLoading => _isLoading;
 
   void addListener(Function(String) listener) {
     _listeners.add(listener);
@@ -13,9 +15,19 @@ class ImageService {
   }
 
   void loadImage() {
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
-    _imageUrl = 'https://images.weserv.nl/?url=api.yppp.net/api.php%3Ft%3D$timestamp';
-    _notifyListeners();
+    _isLoading = true;
+    try {
+      _imageUrl = 'https://pivix.mwm.moe/api/v2/img?ts=${DateTime.now().millisecondsSinceEpoch}';
+    } catch (e) {
+      _imageUrl = '';
+    } finally {
+      _isLoading = false;
+      _notifyListeners();
+    }
+  }
+
+  void refreshImage() {
+    loadImage();
   }
 
   void _notifyListeners() {
