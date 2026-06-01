@@ -140,35 +140,55 @@
     </div>
   </div>
   
-  <script>
-    // Enhanced loading screen management for deferred loading
-    window.addEventListener('load', function() {
-      var loadingScreen = document.getElementById('loading-screen');
-      var checkInterval = setInterval(function() {
-        // Check for Flutter app initialization
-        if (document.querySelector('flt-glass-pane') || 
-            document.querySelector('flt-root-wrapper') ||
-            document.body.classList.contains('flutter-loaded')) {
-          clearInterval(checkInterval);
-          loadingScreen.classList.add('fade-out');
-          setTimeout(function() {
-            loadingScreen.remove();
-          }, 500);
-        }
-      }, 100);
-      
-      // Timeout fallback: remove loading screen after 10 seconds
-      setTimeout(function() {
-        if (loadingScreen && loadingScreen.parentNode) {
-          loadingScreen.classList.add('fade-out');
-          setTimeout(function() {
-            loadingScreen.remove();
-          }, 500);
-        }
-      }, 10000);
-    });
-  </script>
-  
   <script src="flutter_bootstrap.js" async></script>
+  <script>
+    (function() {
+      var loadingScreen = document.getElementById('loading-screen');
+      var isRemoved = false;
+      var checkInterval = null;
+      var timeoutId = null;
+      
+      function removeLoadingScreen() {
+        if (isRemoved) return;
+        isRemoved = true;
+        
+        if (checkInterval) clearInterval(checkInterval);
+        if (timeoutId) clearTimeout(timeoutId);
+        
+        loadingScreen.classList.add('fade-out');
+        setTimeout(function() {
+          if (loadingScreen.parentNode) {
+            loadingScreen.parentNode.removeChild(loadingScreen);
+          }
+        }, 500);
+      }
+      
+      function checkFlutterLoaded() {
+        if (document.querySelector('flt-glass-pane') || 
+            document.querySelector('flt-root-wrapper') || 
+            document.body.classList.contains('flutter-loaded')) {
+          removeLoadingScreen();
+          return true;
+        }
+        return false;
+      }
+      
+      window.addEventListener('load', function() {
+        if (checkFlutterLoaded()) return;
+        
+        checkInterval = setInterval(function() {
+          if (checkFlutterLoaded()) {
+            return;
+          }
+        }, 100);
+        
+        timeoutId = setTimeout(function() {
+          console.log('[Loading Screen] Timeout after 10s, forcing removal');
+          removeLoadingScreen();
+        }, 10000);
+      });
+    })();
+  </script>
+</body>
 </body>
 </html>
